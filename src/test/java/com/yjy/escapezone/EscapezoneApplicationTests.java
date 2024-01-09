@@ -9,5 +9,4 @@ class EscapezoneApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
