@@ -31,8 +31,8 @@ jobs:
     - name: Set environment values
       run: |
         cd ./src/main/resources
-        touch ./env.properties
-        echo "${{ secrets.ENV }}" > ./env.properties
+       # touch ./env.properties
+       # echo "${{ secrets.ENV }}" > ./env.properties
       shell: bash
     # Gradle build (Test 제외)
     - name: Build with Gradle
