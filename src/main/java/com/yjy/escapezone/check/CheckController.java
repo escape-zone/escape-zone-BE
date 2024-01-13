@@ -11,4 +11,5 @@ public class CheckController {
     public String check() {
         return "OK";
     }
+
 }
