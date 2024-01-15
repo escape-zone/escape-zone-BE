@@ -1,4 +1,4 @@
-package com.yjy.escapezone.Configuration;
+package com.yjy.escapezone.common.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
