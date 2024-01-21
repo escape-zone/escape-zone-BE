@@ -1,5 +1,6 @@
 package com.yjy.escapezone.common.jwt;
 
+import com.yjy.escapezone.controller.request.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -12,13 +13,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Component
 public class TokenProvider implements InitializingBean {
@@ -26,14 +27,11 @@ public class TokenProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
-    private final long tokenValidityInMilliseconds;
     private Key key;
 
     public TokenProvider(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+            @Value("${jwt.secret}") String secret) {
         this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
     @Override
     public void afterPropertiesSet() {
@@ -41,20 +39,27 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(Authentication authentication) {
-        String authenties = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
-
+    public TokenDto createToken(Authentication authentication) {
         long now = new Date().getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
-        return Jwts.builder()
+        // Access Token 생성
+        Date accessTokenExpiresIn = new Date(now + 86400000);
+        String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authenties)
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
+                .setExpiration(accessTokenExpiresIn)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date(now + 86400000))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+
+        return TokenDto.builder()
+                .grantType("Bearer")
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public Authentication getAuthentication(String token) {
@@ -70,7 +75,7 @@ public class TokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        UserDetails principal = new User(claims.getSubject(), "", authorities);
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
