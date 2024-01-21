@@ -29,7 +29,7 @@ jobs:
     # 환경 변수 설정
     - name: Set environment values
       run: |
-        cd ./src/main/resources
+        mkdir -p ./src/main/resources
         touch ./application.yml
         echo "${{ secrets.APPLICATION }}" > ./application.yml
       shell: bash
