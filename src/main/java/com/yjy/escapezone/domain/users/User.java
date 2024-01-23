@@ -40,6 +40,10 @@ public class User implements UserDetails {
         this.password = passwordEncoder.encode(password);
     }
 
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void updatePoint(Long point) {
         this.point = point;
     }

@@ -42,6 +42,7 @@ public class UserController {
 
     @PostMapping("/change")
     public ApiResponse<?> changeUserInfo(@Validated @RequestBody ChangeUserInfoRequest request) {
+        userService.changeUserInfo(request);
         return ApiResponse.ok(null, null);
     }
 

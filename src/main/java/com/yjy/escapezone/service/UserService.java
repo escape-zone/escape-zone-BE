@@ -1,6 +1,7 @@
 package com.yjy.escapezone.service;
 
 import com.yjy.escapezone.common.jwt.TokenProvider;
+import com.yjy.escapezone.controller.request.ChangeUserInfoRequest;
 import com.yjy.escapezone.controller.request.LoginRequest;
 import com.yjy.escapezone.controller.request.RegisterDto;
 import com.yjy.escapezone.controller.request.TokenDto;
@@ -61,5 +62,22 @@ public class UserService {
     public RegisterDto getUser(String name) {
         User user = userRepository.findByEmail(name).orElseThrow(() -> new IllegalArgumentException(""));
         return RegisterDto.builder().nickname(user.getNickname()).email(user.getEmail()).name(user.getUsername()).build();
+    }
+
+    public void changeUserInfo(ChangeUserInfoRequest request) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new IllegalArgumentException(""));
+
+        // 비밀번호 변경
+        if(request.getPassword() != null) {
+            user.updatePassword(passwordEncoder, request.getPassword());
+        }
+        // 닉네임 변경
+        if(userRepository.findByNickname(request.getNickname()).isPresent()) {
+            throw new IllegalStateException("중복된 닉네임입니다.");
+        }
+
+        if(request.getNickname() != null) {
+            user.updateNickname(request.getNickname());
+        }
     }
 }
