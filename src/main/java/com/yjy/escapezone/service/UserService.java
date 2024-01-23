@@ -2,7 +2,7 @@ package com.yjy.escapezone.service;
 
 import com.yjy.escapezone.common.jwt.TokenProvider;
 import com.yjy.escapezone.controller.request.LoginRequest;
-import com.yjy.escapezone.controller.request.RegisterRequest;
+import com.yjy.escapezone.controller.request.RegisterDto;
 import com.yjy.escapezone.controller.request.TokenDto;
 import com.yjy.escapezone.domain.users.User;
 import com.yjy.escapezone.domain.users.UserRepository;
@@ -37,7 +37,7 @@ public class UserService {
     /**
      * 회원가입
      */
-    public void register(RegisterRequest request) {
+    public void register(RegisterDto request) {
         // 이메일 중복확인
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
             throw new IllegalStateException("이미 가입된 아이디입니다.");
@@ -56,5 +56,10 @@ public class UserService {
                         .point(0L)
                         .build();
         userRepository.save(user);
+    }
+
+    public RegisterDto getUser(String name) {
+        User user = userRepository.findByEmail(name).orElseThrow(() -> new IllegalArgumentException(""));
+        return RegisterDto.builder().nickname(user.getNickname()).email(user.getEmail()).name(user.getUsername()).build();
     }
 }
