@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ApiResponse<Long> register(@Validated @RequestBody RegisterRequest request) {
-
+        userService.register(request);
         return ApiResponse.ok("가입이 완료되었습니다.", null);
     }
 

@@ -1,7 +1,7 @@
 package com.yjy.escapezone.common.configuration.security;
 
 import com.yjy.escapezone.common.jwt.JwtAuthenticationEntryPoint;
-import com.yjy.escapezone.common.jwt.JwtSecurityConfig;
+import com.yjy.escapezone.common.jwt.JwtFilter;
 import com.yjy.escapezone.common.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +32,7 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 .csrf(AbstractHttpConfigurer::disable) // CSRF 보호 비활성화 (개발 및 디버깅용)
 //                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
@@ -47,7 +48,6 @@ public class SecurityConfig{
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .with(new JwtSecurityConfig(tokenProvider), customizer -> {});
-        return http.build();
+                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class).build();
     }
 }
