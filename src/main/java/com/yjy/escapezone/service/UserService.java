@@ -41,12 +41,12 @@ public class UserService {
     public void register(RegisterDto request) {
         // 이메일 중복확인
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
-            throw new IllegalStateException("이미 가입된 아이디입니다.");
+            throw new AlreadyUserInfoException("아이디");
         }
 
         // 닉네임 중복확인
         if(userRepository.findByNickname(request.getNickname()).isPresent()){
-            throw new IllegalStateException("중복된 닉네임입니다.");
+            throw new AlreadyUserInfoException("닉네임");
         }
 
         // DB 저장
@@ -73,7 +73,7 @@ public class UserService {
         }
         // 닉네임 변경
         if(userRepository.findByNickname(request.getNickname()).isPresent()) {
-            throw new IllegalStateException("중복된 닉네임입니다.");
+            throw new AlreadyUserInfoException("닉네임");
         }
 
         if(request.getNickname() != null) {
