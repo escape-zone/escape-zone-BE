@@ -5,7 +5,6 @@ import com.yjy.escapezone.controller.request.ChangeUserInfoRequest;
 import com.yjy.escapezone.controller.request.LoginRequest;
 import com.yjy.escapezone.controller.request.RegisterDto;
 import com.yjy.escapezone.controller.request.TokenDto;
-import com.yjy.escapezone.domain.users.User;
 import com.yjy.escapezone.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
