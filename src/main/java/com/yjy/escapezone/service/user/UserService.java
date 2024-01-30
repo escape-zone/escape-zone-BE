@@ -1,4 +1,4 @@
-package com.yjy.escapezone.service;
+package com.yjy.escapezone.service.user;
 
 import com.yjy.escapezone.common.jwt.TokenProvider;
 import com.yjy.escapezone.controller.request.ChangeUserInfoRequest;
@@ -6,7 +6,7 @@ import com.yjy.escapezone.controller.request.LoginRequest;
 import com.yjy.escapezone.controller.request.RegisterDto;
 import com.yjy.escapezone.controller.request.TokenDto;
 import com.yjy.escapezone.domain.users.User;
-import com.yjy.escapezone.domain.users.UserRepository;
+import com.yjy.escapezone.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

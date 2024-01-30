@@ -5,7 +5,7 @@ import com.yjy.escapezone.controller.request.ChangeUserInfoRequest;
 import com.yjy.escapezone.controller.request.LoginRequest;
 import com.yjy.escapezone.controller.request.RegisterDto;
 import com.yjy.escapezone.controller.request.TokenDto;
-import com.yjy.escapezone.service.UserService;
+import com.yjy.escapezone.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

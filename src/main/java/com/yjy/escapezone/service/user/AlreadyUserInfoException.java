@@ -1,4 +1,4 @@
-package com.yjy.escapezone.service;
+package com.yjy.escapezone.service.user;
 
 public class AlreadyUserInfoException extends RuntimeException{
 
