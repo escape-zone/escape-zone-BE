@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Transactional
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class RoomService {
     private final RoomRepository roomRepository;
-    public void makeRoom(MakeRoomRequest request, String email) {
+    public Long makeRoom(MakeRoomRequest request, String email) {
         Room room = Room.builder()
                 .title(request.getTitle())
                 .hostId(email)
@@ -28,5 +27,6 @@ public class RoomService {
                 .roomStatus(RoomStatus.WAITING)
                 .maxPlayer(request.getMaxPlayer()).build();
         roomRepository.save(room);
+        return room.getId();
     }
 }

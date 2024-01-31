@@ -6,7 +6,6 @@ import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 public class MakeRoomRequest {
@@ -22,5 +21,5 @@ public class MakeRoomRequest {
 
     private Location location;
 
-    private Integer maxPlayer;
+    private int maxPlayer;
 }

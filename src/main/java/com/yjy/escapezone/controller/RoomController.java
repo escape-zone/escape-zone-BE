@@ -23,8 +23,8 @@ public class RoomController {
     @PostMapping
     public ApiResponse<?> makeRoom(@RequestBody MakeRoomRequest request, Authentication authentication) {
         String email = authentication.getName();
-        roomService.makeRoom(request, email);
-        return null;
+        Long roomId = roomService.makeRoom(request, email);
+        return ApiResponse.ok("방 생성 완료", roomId);
     }
 
 }
