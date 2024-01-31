@@ -22,7 +22,7 @@ public class ApiResponse<T> {
     }
 
     //임시 api개발을 위한 응답값
-    public static <T> ApiResponse<T> ok() {
+    public static <T> ApiResponse<T> dummySuccessResponse() {
         return ApiResponse.<T>builder()
                 .success(true)
                 .data(null)
