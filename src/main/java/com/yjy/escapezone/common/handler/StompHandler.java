@@ -28,10 +28,10 @@ public class StompHandler implements ChannelInterceptor {
     }
 
     private void handleConnect(String sessionId) {
-        log.info("세션 들어옴 => {}", sessionId);
+        log.debug("세션 들어옴 => {}", sessionId);
     }
 
     private void handleDisconnect(String sessionId) {
-        log.info("세션 끊음 => {}", sessionId);
+        log.debug("세션 끊음 => {}", sessionId);
     }
 }
