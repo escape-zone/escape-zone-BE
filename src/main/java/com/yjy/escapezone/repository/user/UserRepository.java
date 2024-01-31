@@ -1,5 +1,6 @@
-package com.yjy.escapezone.domain.users;
+package com.yjy.escapezone.repository.user;
 
+import com.yjy.escapezone.domain.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
