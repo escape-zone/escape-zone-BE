@@ -6,6 +6,7 @@ import com.yjy.escapezone.controller.request.LoginRequest;
 import com.yjy.escapezone.controller.request.RegisterDto;
 import com.yjy.escapezone.controller.request.TokenDto;
 import com.yjy.escapezone.service.user.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -22,13 +23,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ApiResponse<Long> register(@Validated @RequestBody RegisterDto request) {
+    public ApiResponse<Long> register(@Valid @RequestBody RegisterDto request) {
         userService.register(request);
         return ApiResponse.ok("가입이 완료되었습니다.", null);
     }
 
     @PostMapping("/login")
-    public ApiResponse<TokenDto> login(@Validated @RequestBody LoginRequest request) {
+    public ApiResponse<TokenDto> login(@Valid @RequestBody LoginRequest request) {
         TokenDto token = userService.login(request);
         return ApiResponse.ok(request.getEmail() + " 로그인 되었습니다.", token);
     }

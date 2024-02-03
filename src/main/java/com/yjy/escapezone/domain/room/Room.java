@@ -37,7 +37,7 @@ public class Room {
     @Convert(converter = Location.LocationConverter.class)
     private Location location;
 
-    private int maxPlayer;
+    private Integer maxPlayer;
 
     @Convert(converter = RoomStatus.RoomStatusConverter.class)
     private RoomStatus roomStatus;
