@@ -17,10 +17,9 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ApiResponse<Void>> handle400(Exception ex) {
-
+    public ResponseEntity<ApiResponse<Void>> handle400(RuntimeException ex) {
         ApiResponse<Void> errorResponse = ApiResponse.from("BAD_REQUEST: " + ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
