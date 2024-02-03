@@ -10,7 +10,7 @@ import lombok.Setter;
 public class MessageDto {
 
     public enum MessageType{
-        ENTER, TALK
+        ENTER, TALK, EXIT
     }
     private MessageType messageType;
     private Long chatRoomId;

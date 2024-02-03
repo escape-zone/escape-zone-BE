@@ -20,6 +20,8 @@ public class MessageController {
     public void sendMessage(MessageDto message) {
         if (MessageDto.MessageType.ENTER.equals(message.getMessageType())){
             message.setMessage(message.getSenderId() + "님이 입장하셨습니다.");
+        } else if (MessageDto.MessageType.EXIT.equals(message.getMessageType())){
+            message.setMessage(message.getSenderId() + "님이 퇴장하셨습니다.");
         }
         sendingOperations.convertAndSend("/sub/chat/" + message.getChatRoomId(), message);
     }
