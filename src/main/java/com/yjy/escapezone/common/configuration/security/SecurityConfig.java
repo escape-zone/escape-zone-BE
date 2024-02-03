@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig{
 
-//    private final CorsFilter corsFilter;
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -34,14 +33,13 @@ public class SecurityConfig{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // CSRF 보호 비활성화 (개발 및 디버깅용)
-//                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/check", "/users/login", "/users/register", "/ws/**").permitAll()
+                        .requestMatchers("/check", "/users/login", "/users/register", "/ws").permitAll()
                         .anyRequest().authenticated()
                 )
 
