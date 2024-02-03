@@ -12,7 +12,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
+      
+    - name: Docker build
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        docker build -t escape_zone .
+        docker tag escape_zone yeojinyu/escape_zone:${GITHUB_SHA::7}
+        docker push yeojinyu/escape_zone:${GITHUB_SHA::7}
+        
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
