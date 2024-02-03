@@ -1,9 +1,10 @@
 name: CD
 
 on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
 
 jobs:
   deploy:
@@ -32,6 +33,7 @@ jobs:
         docker push yeojinyu/escape_zone:${GITHUB_SHA::7}
         
     - name: Deploy
+      if: github.ref == 'refs/heads/master'
       uses: appleboy/ssh-action@master
       with:
         host: 35.216.75.221
