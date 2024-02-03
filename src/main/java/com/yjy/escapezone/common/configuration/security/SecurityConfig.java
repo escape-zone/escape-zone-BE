@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig{
 
-//    private final CorsFilter corsFilter;
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -40,7 +39,7 @@ public class SecurityConfig{
                 )
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/check", "/users/login", "/users/register", "/ws/**").permitAll()
+                        .requestMatchers("/check", "/users/login", "/users/register", "/ws").permitAll()
                         .anyRequest().authenticated()
                 )
 
