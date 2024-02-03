@@ -14,17 +14,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
-    - name: Set environment values
-      run: |
-        mkdir -p ./src/main/resources
-        touch ./application.yml
-        echo "${{ secrets.APPLICATION }}" > ./application.yml
-      shell: bash
-
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: clean build -x test
     - name: Docker build
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
