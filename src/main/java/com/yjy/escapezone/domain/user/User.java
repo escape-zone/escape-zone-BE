@@ -1,5 +1,6 @@
-package com.yjy.escapezone.domain.users;
+package com.yjy.escapezone.domain.user;
 
+import com.yjy.escapezone.domain.userroom.UserRoom;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +10,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "USERS")
+@Table(name = "USER")
 @AllArgsConstructor
 @Builder
 @Entity
@@ -35,6 +38,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private Long point;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserRoom> userRooms = new ArrayList<>();
 
     public void updatePassword(PasswordEncoder passwordEncoder, String password) {
         this.password = passwordEncoder.encode(password);

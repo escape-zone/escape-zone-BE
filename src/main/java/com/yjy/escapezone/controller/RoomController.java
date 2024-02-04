@@ -2,6 +2,8 @@ package com.yjy.escapezone.controller;
 
 import com.yjy.escapezone.common.dto.ApiResponse;
 import com.yjy.escapezone.controller.request.MakeRoomRequest;
+import com.yjy.escapezone.controller.response.MakeRoomResponse;
+import com.yjy.escapezone.repository.userroom.UserRoomRepository;
 import com.yjy.escapezone.service.room.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +23,10 @@ public class RoomController {
      * 방만들기
      */
     @PostMapping
-    public ApiResponse<?> makeRoom(@Valid @RequestBody MakeRoomRequest request, Authentication authentication) {
+    public ApiResponse<MakeRoomResponse> makeRoom(@Valid @RequestBody MakeRoomRequest request, Authentication authentication) {
         String email = authentication.getName();
         Long roomId = roomService.makeRoom(request, email);
-        return ApiResponse.ok("방 생성 완료", roomId);
+        MakeRoomResponse makeRoomResponse = MakeRoomResponse.builder().roomId(roomId).build();
+        return ApiResponse.ok("방 생성 완료", makeRoomResponse);
     }
-
 }
