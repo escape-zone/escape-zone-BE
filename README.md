@@ -52,3 +52,5 @@ Spring boot, Gradle, Jpa, MySql, Docker, GitHub Action, Java17, Google Cloud Pla
 - CI/CD 구축하기
 - 응답값을 어떻게 줘야 할까?
 - 적절한 브랜치 전략은?
+- JPA N+1 문제
+- STOMP에서 토큰을 어떻게 받아야 할까?
