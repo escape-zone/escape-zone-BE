@@ -1,6 +1,6 @@
 package com.yjy.escapezone.service.user;
 
-import com.yjy.escapezone.domain.users.User;
+import com.yjy.escapezone.domain.user.User;
 import com.yjy.escapezone.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

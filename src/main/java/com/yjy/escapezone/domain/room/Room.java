@@ -1,5 +1,6 @@
 package com.yjy.escapezone.domain.room;
 
+import com.yjy.escapezone.domain.userroom.UserRoom;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -45,5 +48,8 @@ public class Room {
     private LocalDateTime signDate;
 
     private Long categoryId;
+
+    @OneToMany(mappedBy = "room")
+    private List<UserRoom> users = new ArrayList<>();
 
 }
